@@ -1,0 +1,130 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fiind Embed</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body
+    style="margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; background: linear-gradient(160deg, #f0f4ff 0%, #e8eef7 50%, #f5f7fa 100%); min-height: 100vh; box-sizing: border-box; color: #1a1d26;">
+    <main style="padding: 48px 24px 64px; max-width: 1400px; margin: 0 auto;">
+        <h1
+            style="margin: 0 0 16px 0; font-size: 2.5rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; color: #0f172a;">
+            Fiind Booking Embed</h1>
+        <p style="margin: 0 0 32px 0; font-size: 1.125rem; line-height: 1.6; color: #475569; max-width: 560px;">This
+            page shows how the Fiind booking widget looks when embedded on your site. Use the viewport selector below to
+            preview how it behaves on different screen sizes—from mobile to desktop—so you can verify layout and
+            responsiveness before going live.</p>
+        <div style="margin-bottom: 20px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <span style="font-size: 14px; font-weight: 600; color: #334155;">Environment</span>
+                <select id="env-preset"
+                    style="padding: 10px 14px; font-size: 14px; font-family: inherit; font-weight: 500; border: 1px solid #e2e8f0; border-radius: 8px; background: #fff; color: #1e293b; cursor: pointer; min-width: 260px; appearance: none; background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2224%22 height=%2224%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%221e293b%22 stroke-width=%222%22%3E%3Cpath d=%22M6 9l6 6 6-6%22/%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 10px center; background-size: 18px; padding-right: 36px;">
+                    <option value="local">Local — localhost:3000 (mukundluxecare)</option>
+                    <option value="develop">Develop — mp-dev.fiind.app (mukundluxecare)</option>
+                    <option value="kochsklinik">Production — bahlou.dk (kochsklinik)</option>
+                    <option value="mpbyggesagkyndig">Production — bahlou.dk (mpbyggesagkyndig)</option>
+                    <option value="localMpbyggesagkyndig">Local — localhost:3000 (mpbyggesagkyndig)</option>
+                </select>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <span style="font-size: 14px; font-weight: 600; color: #334155;">Viewport size</span>
+                <select id="width-preset"
+                    style="padding: 10px 14px; font-size: 14px; font-family: inherit; font-weight: 500; border: 1px solid #e2e8f0; border-radius: 8px; background: #fff; color: #1e293b; cursor: pointer; min-width: 180px; appearance: none; background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2224%22 height=%2224%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%221e293b%22 stroke-width=%222%22%3E%3Cpath d=%22M6 9l6 6 6-6%22/%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 10px center; background-size: 18px; padding-right: 36px;">
+                    <option value="400">Mobile — 400px</option>
+                    <option value="600">Tablet S — 600px</option>
+                    <option value="800" selected>Tablet L — 800px</option>
+                    <option value="1000">Laptop — 1000px</option>
+                    <option value="1200">Laptop wide — 1200px</option>
+                    <option value="100%">Full width</option>
+                </select>
+                <span id="width-badge"
+                    style="font-size: 12px; font-weight: 600; background: #e2e8f0; color: #475569; padding: 6px 12px; border-radius: 6px;">800px</span>
+            </div>
+        </div>
+        <div id="embed-wrapper"
+            style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(15,23,42,0.08), 0 10px 40px -10px rgba(15,23,42,0.15); border: 1px solid rgba(226,232,240,0.8); transition: width 0.25s ease-out;">
+            <div
+                style="background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); padding: 10px 16px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; gap: 8px;">
+                <span style="width: 8px; height: 8px; border-radius: 50%; background: #e2e8f0;"></span>
+                <span style="width: 8px; height: 8px; border-radius: 50%; background: #e2e8f0;"></span>
+                <span style="width: 8px; height: 8px; border-radius: 50%; background: #e2e8f0;"></span>
+                <span
+                    style="font-size: 11px; color: #94a3b8; margin-left: 8px; font-weight: 500;">embed.fiind.com</span>
+            </div>
+            <div id="embed-container"
+                style="width: 800px; max-width: 100%; min-height: 800px; margin: 0 auto; background: #fff; overflow: hidden; transition: width 0.25s ease-out;">
+            </div>
+        </div>
+    </main>
+
+    <footer
+        style="margin-top: 48px; background: linear-gradient(180deg, #0f172a 0%, #111827 100%); color: #e2e8f0; border-top: 1px solid rgba(148, 163, 184, 0.2);">
+        <div
+            style="max-width: 1400px; margin: 0 auto; padding: 44px 24px 36px; display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+            <div style="max-width: 720px;">
+                <div style="font-size: 1.6rem; line-height: 1.25; font-weight: 700; letter-spacing: -0.02em; color: #f8fafc;">
+                    Fiind Booking Embed Preview
+                </div>
+                <p style="margin: 14px 0 0; font-size: 1rem; line-height: 1.65; color: #cbd5e1;">
+                    Validate responsive behavior, environment-specific data, and visual consistency before embedding the
+                    booking widget on production pages.
+                </p>
+            </div>
+            <div style="min-width: 240px; font-size: 0.9rem; line-height: 1.7; color: #94a3b8;">
+                <div style="font-weight: 600; color: #cbd5e1;">Fiind Embed</div>
+                <div>Environment & viewport tester</div>
+                <div>For internal QA and release checks</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            var ENVS = {
+                local: { base: 'http://localhost:3000', clinic: 'Mukundluxecare' },
+                develop: { base: 'https://mp-dev.fiind.app', clinic: 'Mukundluxecare' },
+                kochsklinik: { base: 'https://bahlou.dk', clinic: 'kochsklinik' },
+                mpbyggesagkyndig: { base: 'https://bahlou.dk', clinic: 'mpbyggesagkyndig' },
+                localMpbyggesagkyndig: { base: 'http://localhost:3000', clinic: 'mpbyggesagkyndig' }
+            };
+            var container = document.getElementById('embed-container');
+            var wrapper = document.getElementById('embed-wrapper');
+            var widthSelect = document.getElementById('width-preset');
+            var envSelect = document.getElementById('env-preset');
+            var badge = document.getElementById('width-badge');
+            function loadEmbed() {
+                var env = ENVS[envSelect.value];
+                if (!env) return;
+                container.innerHTML = '';
+                var script = document.createElement('script');
+                script.src = env.base + '/assets/js/fiind-embed.js';
+                script.setAttribute('data-booking-url', env.base + '/klinik/' + env.clinic + '?lang=da');
+                script.setAttribute('data-height', '800px');
+                script.setAttribute('data-language', 'da');
+                script.setAttribute('data-theme', 'light');
+                script.setAttribute('data-show-language-switcher', 'false');
+                script.setAttribute('data-show-theme-switcher', 'false');
+                container.appendChild(script);
+            }
+            function applyWidth() {
+                var val = widthSelect.value;
+                var width = val === '100%' ? '100%' : val + 'px';
+                container.style.width = width;
+                wrapper.style.width = width;
+                badge.textContent = val === '100%' ? '100%' : val + 'px';
+            }
+            envSelect.addEventListener('change', loadEmbed);
+            widthSelect.addEventListener('change', applyWidth);
+            applyWidth();
+            loadEmbed();
+        })();
+    </script>
+</body>
+
+</html>
