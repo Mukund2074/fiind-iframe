@@ -25,10 +25,13 @@
                 <span style="font-size: 14px; font-weight: 600; color: #334155;">Environment</span>
                 <select id="env-preset"
                     style="padding: 10px 14px; font-size: 14px; font-family: inherit; font-weight: 500; border: 1px solid #e2e8f0; border-radius: 8px; background: #fff; color: #1e293b; cursor: pointer; min-width: 260px; appearance: none; background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2224%22 height=%2224%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%221e293b%22 stroke-width=%222%22%3E%3Cpath d=%22M6 9l6 6 6-6%22/%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 10px center; background-size: 18px; padding-right: 36px;">
+                    <option value="ngrok">Ngrok — https://0b91-2401-4900-8fee-6994-5dfc-2e9e-fc8e-afec.ngrok-free.app/
+                        (mukundluxecare)</option>
                     <option value="local">Local — localhost:3000 (mukundluxecare)</option>
                     <option value="develop">Develop — mp-dev.fiind.app (mukundluxecare)</option>
                     <option value="kochsklinik">Production — bahlou.dk (kochsklinik)</option>
                     <option value="mpbyggesagkyndig">Production — bahlou.dk (mpbyggesagkyndig)</option>
+                    <option value="developMpbyggesagkyndig">Develop — mp-dev.fiind.app (mpbyggesagkyndig)</option>
                     <option value="localMpbyggesagkyndig">Local — localhost:3000 (mpbyggesagkyndig)</option>
                 </select>
             </div>
@@ -68,7 +71,8 @@
         <div
             style="max-width: 1400px; margin: 0 auto; padding: 44px 24px 36px; display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
             <div style="max-width: 720px;">
-                <div style="font-size: 1.6rem; line-height: 1.25; font-weight: 700; letter-spacing: -0.02em; color: #f8fafc;">
+                <div
+                    style="font-size: 1.6rem; line-height: 1.25; font-weight: 700; letter-spacing: -0.02em; color: #f8fafc;">
                     Fiind Booking Embed Preview
                 </div>
                 <p style="margin: 14px 0 0; font-size: 1rem; line-height: 1.65; color: #cbd5e1;">
@@ -87,10 +91,12 @@
     <script>
         (function () {
             var ENVS = {
+                ngrok: { base: 'https://0b91-2401-4900-8fee-6994-5dfc-2e9e-fc8e-afec.ngrok-free.app', clinic: 'Mukundluxecare' },
                 local: { base: 'http://localhost:3000', clinic: 'Mukundluxecare' },
                 develop: { base: 'https://mp-dev.fiind.app', clinic: 'Mukundluxecare' },
                 kochsklinik: { base: 'https://bahlou.dk', clinic: 'kochsklinik' },
                 mpbyggesagkyndig: { base: 'https://bahlou.dk', clinic: 'mpbyggesagkyndig' },
+                developMpbyggesagkyndig: { base: 'https://mp-dev.fiind.app', clinic: 'mpbyggesagkyndig' },
                 localMpbyggesagkyndig: { base: 'http://localhost:3000', clinic: 'mpbyggesagkyndig' }
             };
             var container = document.getElementById('embed-container');
