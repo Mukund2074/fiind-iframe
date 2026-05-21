@@ -105,6 +105,7 @@
                 var bookingUrl = new URL(env.base + '/klinik/' + env.clinic);
                 var incomingParams = new URLSearchParams(window.location.search);
                 if (!incomingParams.has('lang')) incomingParams.set('lang', 'da');
+                incomingParams.set('hide', 'true');
                 incomingParams.forEach(function (value, key) {
                     bookingUrl.searchParams.append(key, value);
                 });
