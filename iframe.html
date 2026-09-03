@@ -1,141 +1,1751 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Fiind Embed</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiind Embed Studio | Iframe Preview</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-50: #fff8f1;
+            --primary-100: #feecd9;
+            --primary-200: #fcd5b1;
+            --primary-300: #f9b681;
+            --primary-400: #f68e4a;
+            --primary-500: #f97316;
+            --primary-600: #ea580c;
+            --primary-700: #c2410c;
+            --primary-800: #9a3412;
+            --primary-900: #7c2d12;
+            
+            --slate-50: #f8fafc;
+            --slate-100: #f1f5f9;
+            --slate-200: #e2e8f0;
+            --slate-300: #cbd5e1;
+            --slate-400: #94a3b8;
+            --slate-500: #64748b;
+            --slate-600: #475569;
+            --slate-700: #334155;
+            --slate-800: #1e293b;
+            --slate-900: #0f172a;
+            
+            --surface-card: #ffffff;
+            --surface-subtle: #fffaf5;
+            --border-warm: rgba(249, 115, 22, 0.2);
+            --shadow-orange-sm: 0 2px 8px rgba(249, 115, 22, 0.08);
+            --shadow-orange-md: 0 8px 24px -4px rgba(249, 115, 22, 0.16);
+            --shadow-orange-lg: 0 20px 40px -12px rgba(234, 88, 12, 0.22);
+            --shadow-card: 0 10px 30px -5px rgba(15, 23, 42, 0.06), 0 4px 6px -2px rgba(15, 23, 42, 0.03);
+            --shadow-dropdown: 0 16px 36px -6px rgba(15, 23, 42, 0.18), 0 0 0 1px rgba(249, 115, 22, 0.15);
+            
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 18px;
+            --radius-xl: 24px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--primary-50);
+            background-image: 
+                radial-gradient(at 15% 10%, rgba(249, 115, 22, 0.12) 0px, transparent 50%),
+                radial-gradient(at 85% 20%, rgba(251, 146, 60, 0.15) 0px, transparent 50%),
+                radial-gradient(at 50% 80%, rgba(254, 215, 170, 0.25) 0px, transparent 60%);
+            background-attachment: fixed;
+            color: var(--slate-800);
+            min-height: 100vh;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Top Header */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(14px);
+            background: rgba(255, 255, 255, 0.88);
+            border-bottom: 1px solid var(--border-warm);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .brand-logo {
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-md);
+            background: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-600) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 14px rgba(249, 115, 22, 0.4);
+            color: #ffffff;
+        }
+
+        .brand-logo svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        .brand-info h1 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--slate-900);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-badge {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 2px 8px;
+            border-radius: 9999px;
+            background: var(--primary-100);
+            color: var(--primary-700);
+            font-weight: 700;
+            border: 1px solid var(--primary-200);
+        }
+
+        .brand-subtitle {
+            font-size: 0.8rem;
+            color: var(--slate-500);
+            font-weight: 500;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .header-btn-subtle {
+            background: #ffffff;
+            color: var(--slate-700);
+            border-color: var(--slate-200);
+        }
+
+        .header-btn-subtle:hover {
+            border-color: var(--primary-300);
+            color: var(--primary-600);
+            background: var(--primary-50);
+        }
+
+        .header-btn-primary {
+            background: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-600) 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+        }
+
+        .header-btn-primary:hover {
+            box-shadow: 0 6px 18px rgba(249, 115, 22, 0.45);
+            transform: translateY(-1px);
+        }
+
+        /* Main Layout */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        /* Hero Banner */
+        .hero-section {
+            text-align: center;
+            max-width: 860px;
+            margin: 0 auto 36px;
+        }
+
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: #ffffff;
+            border: 1px solid var(--border-warm);
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-700);
+            box-shadow: var(--shadow-orange-sm);
+            margin-bottom: 20px;
+        }
+
+        .hero-pill-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary-500);
+            box-shadow: 0 0 8px var(--primary-400);
+            animation: pulseDot 2s infinite;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.85); }
+        }
+
+        .hero-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -0.035em;
+            line-height: 1.15;
+            color: var(--slate-900);
+            margin-bottom: 16px;
+        }
+
+        .hero-title-highlight {
+            background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-400) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            color: var(--slate-600);
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        /* Feature Highlights Row */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: #ffffff;
+            border: 1px solid rgba(249, 115, 22, 0.12);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            box-shadow: var(--shadow-card);
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary-300);
+            box-shadow: var(--shadow-orange-md);
+        }
+
+        .feature-icon-box {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-sm);
+            background: var(--primary-100);
+            color: var(--primary-600);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .feature-icon-box svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .feature-content h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--slate-900);
+            margin-bottom: 4px;
+        }
+
+        .feature-content p {
+            font-size: 0.825rem;
+            color: var(--slate-500);
+            line-height: 1.5;
+        }
+
+        /* Control Panel */
+        .control-panel {
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-warm);
+            padding: 24px;
+            box-shadow: var(--shadow-card);
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 40;
+        }
+
+        .control-panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--slate-100);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .control-panel-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--slate-800);
+        }
+
+        .control-panel-title svg {
+            width: 20px;
+            height: 20px;
+            color: var(--primary-500);
+        }
+
+        .selectors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 20px;
+        }
+
+        .selector-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: relative;
+        }
+
+        .selector-label {
+            font-size: 0.825rem;
+            font-weight: 700;
+            color: var(--slate-700);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .selector-helper {
+            font-size: 0.75rem;
+            color: var(--slate-400);
+            font-weight: 500;
+            text-transform: none;
+        }
+
+        /* Custom Dropdown Component Styles */
+        .dropdown-component {
+            position: relative;
+            width: 100%;
+        }
+
+        .dropdown-trigger-btn {
+            width: 100%;
+            background: #ffffff;
+            border: 1.5px solid var(--slate-200);
+            border-radius: var(--radius-md);
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            outline: none;
+            text-align: left;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+        }
+
+        .dropdown-trigger-btn:hover {
+            border-color: var(--primary-400);
+            background-color: var(--surface-subtle);
+        }
+
+        .dropdown-component.is-open .dropdown-trigger-btn {
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3.5px rgba(249, 115, 22, 0.15), 0 2px 8px rgba(249, 115, 22, 0.08);
+            background-color: #ffffff;
+        }
+
+        .dropdown-selected-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .dropdown-icon-pill {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-sm);
+            background: var(--primary-100);
+            color: var(--primary-600);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .dropdown-icon-pill svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .dropdown-text-group {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .dropdown-primary-text {
+            font-size: 0.885rem;
+            font-weight: 700;
+            color: var(--slate-900);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .dropdown-sub-text {
+            font-size: 0.735rem;
+            color: var(--slate-500);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .dropdown-chevron {
+            color: var(--slate-400);
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .dropdown-component.is-open .dropdown-chevron {
+            transform: rotate(180deg);
+            color: var(--primary-600);
+        }
+
+        /* Dropdown Options Menu Panel */
+        .dropdown-menu-panel {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            border: 1px solid var(--border-warm);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-dropdown);
+            padding: 6px;
+            max-height: 320px;
+            overflow-y: auto;
+            z-index: 150;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px) scale(0.98);
+            transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                        visibility 0.2s ease;
+        }
+
+        .dropdown-component.is-open .dropdown-menu-panel {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .dropdown-option-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            background: transparent;
+            user-select: none;
+        }
+
+        .dropdown-option-item:hover {
+            background-color: var(--primary-50);
+        }
+
+        .dropdown-option-item.is-selected {
+            background-color: var(--primary-100);
+        }
+
+        .dropdown-option-item.is-selected .dropdown-primary-text {
+            color: var(--primary-800);
+        }
+
+        .dropdown-option-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .option-tag-badge {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 2px 7px;
+            border-radius: 9999px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .tag-dev {
+            background: rgba(249, 115, 22, 0.12);
+            color: var(--primary-700);
+            border: 1px solid rgba(249, 115, 22, 0.25);
+        }
+
+        .tag-prod {
+            background: rgba(16, 185, 129, 0.12);
+            color: #047857;
+            border: 1px solid rgba(16, 185, 129, 0.25);
+        }
+
+        .tag-local {
+            background: rgba(100, 116, 139, 0.12);
+            color: var(--slate-700);
+            border: 1px solid rgba(100, 116, 139, 0.25);
+        }
+
+        .dropdown-option-check {
+            color: var(--primary-600);
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .dropdown-option-item.is-selected .dropdown-option-check {
+            opacity: 1;
+        }
+
+        /* Active Config Bar */
+        .config-status-bar {
+            margin-top: 20px;
+            padding: 12px 16px;
+            background: var(--surface-subtle);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-warm);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 14px;
+            font-size: 0.825rem;
+        }
+
+        .url-preview-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--slate-700);
+            background: #ffffff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--slate-200);
+            max-width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .url-preview-tag span.badge-protocol {
+            color: var(--primary-600);
+            font-weight: 700;
+        }
+
+        .quick-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .action-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: #ffffff;
+            border: 1px solid var(--slate-200);
+            border-radius: 6px;
+            font-size: 0.775rem;
+            font-weight: 600;
+            color: var(--slate-700);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-decoration: none;
+        }
+
+        .action-chip:hover {
+            border-color: var(--primary-400);
+            color: var(--primary-600);
+            background: var(--primary-50);
+        }
+
+        /* Iframe Device Frame */
+        .preview-outer-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 48px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .device-browser-frame {
+            background: #ffffff;
+            border-radius: var(--radius-xl);
+            box-shadow: 0 12px 36px -8px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(249, 115, 22, 0.15);
+            overflow: hidden;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 100%;
+        }
+
+        .browser-top-bar {
+            background: linear-gradient(180deg, #ffffff 0%, #fdf7f2 100%);
+            padding: 12px 18px;
+            border-bottom: 1px solid var(--border-warm);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .window-controls {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .window-dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #f87171; }
+        .dot-amber { background: #fbbf24; }
+        .dot-green { background: #34d399; }
+
+        .browser-address-bar {
+            flex: 1;
+            max-width: 600px;
+            background: #ffffff;
+            border: 1px solid var(--slate-200);
+            border-radius: 9999px;
+            padding: 6px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.775rem;
+            color: var(--slate-600);
+            font-family: 'JetBrains Mono', monospace;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02);
+        }
+
+        .address-lock {
+            color: var(--primary-500);
+            display: flex;
+            align-items: center;
+        }
+
+        .address-text {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .browser-meta-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            background: var(--primary-100);
+            color: var(--primary-700);
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--primary-200);
+            white-space: nowrap;
+        }
+
+        /* Embed Target Container */
+        .embed-content-box {
+            background: #ffffff;
+            min-height: 800px;
+            overflow: auto;
+            position: relative;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: 0 auto;
+        }
+
+        /* Loading Skeleton */
+        .embed-skeleton {
+            position: absolute;
+            inset: 0;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            z-index: 10;
+            transition: opacity 0.3s ease;
+        }
+
+        .skeleton-spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--primary-100);
+            border-top-color: var(--primary-500);
+            border-radius: 50%;
+            animation: spinSpinner 0.8s linear infinite;
+            margin-bottom: 16px;
+        }
+
+        @keyframes spinSpinner {
+            to { transform: rotate(360deg); }
+        }
+
+        .skeleton-text {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--slate-700);
+            margin-bottom: 6px;
+        }
+
+        .skeleton-subtext {
+            font-size: 0.8rem;
+            color: var(--slate-400);
+        }
+
+        /* Integration & Code Snippet Section */
+        .integration-section {
+            background: #ffffff;
+            border: 1px solid var(--border-warm);
+            border-radius: var(--radius-lg);
+            padding: 36px 32px;
+            box-shadow: var(--shadow-card);
+            margin-bottom: 40px;
+        }
+
+        .integration-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .integration-header h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--slate-900);
+        }
+
+        .code-box-wrapper {
+            background: var(--slate-900);
+            border-radius: var(--radius-md);
+            padding: 20px 24px;
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .code-box-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .code-lang-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--primary-400);
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .copy-code-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 0.775rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .copy-code-btn:hover {
+            background: var(--primary-500);
+            border-color: var(--primary-400);
+        }
+
+        .code-display {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #e2e8f0;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--slate-900);
+            color: #e2e8f0;
+            padding: 56px 24px 40px;
+            border-top: 3px solid var(--primary-500);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand h4 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            color: var(--slate-400);
+            line-height: 1.6;
+            max-width: 480px;
+        }
+
+        .footer-column h5 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--primary-400);
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            color: var(--slate-400);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.15s ease;
+        }
+
+        .footer-links a:hover {
+            color: #ffffff;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--slate-500);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        /* Toast notification */
+        .toast-notification {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--slate-900);
+            color: #ffffff;
+            padding: 12px 20px;
+            border-radius: var(--radius-sm);
+            border-left: 4px solid var(--primary-500);
+            font-size: 0.875rem;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast-notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero-title {
+                font-size: 2.1rem;
+            }
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
 </head>
 
-<body
-    style="margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; background: linear-gradient(160deg, #f0f4ff 0%, #e8eef7 50%, #f5f7fa 100%); min-height: 100vh; box-sizing: border-box; color: #1a1d26;">
-    <main style="padding: 48px 24px 64px; max-width: 1400px; margin: 0 auto;">
-        <h1
-            style="margin: 0 0 16px 0; font-size: 2.5rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; color: #0f172a;">
-            Fiind Booking Embed</h1>
-        <p style="margin: 0 0 32px 0; font-size: 1.125rem; line-height: 1.6; color: #475569; max-width: 560px;">This
-            page shows how the Fiind booking widget looks when embedded on your site. Use the viewport selector below to
-            preview how it behaves on different screen sizes—from mobile to desktop—so you can verify layout and
-            responsiveness before going live.</p>
-        <div style="margin-bottom: 20px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <span style="font-size: 14px; font-weight: 600; color: #334155;">Environment</span>
-                <select id="env-preset"
-                    style="padding: 10px 14px; font-size: 14px; font-family: inherit; font-weight: 500; border: 1px solid #e2e8f0; border-radius: 8px; background: #fff; color: #1e293b; cursor: pointer; min-width: 260px; appearance: none; background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2224%22 height=%2224%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%221e293b%22 stroke-width=%222%22%3E%3Cpath d=%22M6 9l6 6 6-6%22/%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 10px center; background-size: 18px; padding-right: 36px;">
-                    <option selected value="develop">Develop — mp-dev.fiind.app (mukundluxecare)</option>
-                    <option value="local">Local — localhost:3000 (mukundluxecare)</option>
-                    <option value="kochsklinik">Production — bahlou.dk (kochsklinik)</option>
-                    <option value="mpbyggesagkyndig">Production — bahlou.dk (mpbyggesagkyndig)</option>
-                    <option value="developMpbyggesagkyndig">Develop — mp-dev.fiind.app (mpbyggesagkyndig)</option>
-                    <option value="localMpbyggesagkyndig">Local — localhost:3000 (mpbyggesagkyndig)</option>
-                </select>
-            </div>
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <span style="font-size: 14px; font-weight: 600; color: #334155;">Viewport size</span>
-                <select id="width-preset"
-                    style="padding: 10px 14px; font-size: 14px; font-family: inherit; font-weight: 500; border: 1px solid #e2e8f0; border-radius: 8px; background: #fff; color: #1e293b; cursor: pointer; min-width: 180px; appearance: none; background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2224%22 height=%2224%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%221e293b%22 stroke-width=%222%22%3E%3Cpath d=%22M6 9l6 6 6-6%22/%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 10px center; background-size: 18px; padding-right: 36px;">
-                    <option value="400">Mobile — 400px</option>
-                    <option value="600">Tablet S — 600px</option>
-                    <option value="800" selected>Tablet L — 800px</option>
-                    <option value="1000">Laptop — 1000px</option>
-                    <option value="1200">Laptop wide — 1200px</option>
-                    <option value="100%">Full width</option>
-                </select>
-                <span id="width-badge"
-                    style="font-size: 12px; font-weight: 600; background: #e2e8f0; color: #475569; padding: 6px 12px; border-radius: 6px;">800px</span>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="#" class="brand-wrapper">
+                <div class="brand-logo">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                </div>
+                <div class="brand-info">
+                    <h1>Fiind Embed Studio <span class="brand-badge">Orange v2.0</span></h1>
+                    <div class="brand-subtitle">Interactive Booking Widget Preview & Testing Suite</div>
+                </div>
+            </a>
+            <div class="header-actions">
+                <button id="quick-refresh-btn" class="header-btn header-btn-subtle" title="Reload iframe preview">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+                    </svg>
+                    Reload
+                </button>
+                <a id="external-preview-link" href="#" target="_blank" rel="noopener noreferrer" class="header-btn header-btn-primary">
+                    <span>Open Standalone</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
             </div>
         </div>
-        <div id="embed-wrapper"
-            style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(15,23,42,0.08), 0 10px 40px -10px rgba(15,23,42,0.15); border: 1px solid rgba(226,232,240,0.8); transition: width 0.25s ease-out;">
-            <div
-                style="background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); padding: 10px 16px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; gap: 8px;">
-                <span style="width: 8px; height: 8px; border-radius: 50%; background: #e2e8f0;"></span>
-                <span style="width: 8px; height: 8px; border-radius: 50%; background: #e2e8f0;"></span>
-                <span style="width: 8px; height: 8px; border-radius: 50%; background: #e2e8f0;"></span>
-                <span
-                    style="font-size: 11px; color: #94a3b8; margin-left: 8px; font-weight: 500;">embed.fiind.com</span>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-pill">
+                <span class="hero-pill-dot"></span>
+                <span>Real-Time Iframe Integration Playground</span>
             </div>
-            <div id="embed-container"
-                style="width: 800px; max-width: 100%; min-height: 800px; margin: 0 auto; background: #fff; overflow: hidden; transition: width 0.25s ease-out;">
+            <h2 class="hero-title">
+                Experience the <span class="hero-title-highlight">Fiind Booking Widget</span> Anywhere
+            </h2>
+            <p class="hero-description">
+                Seamlessly preview and test the responsive embed across environments—production, development, and local setups—with multi-store configuration and adaptive viewport controls.
+            </p>
+        </section>
+
+        <!-- Feature Cards -->
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                </div>
+                <div class="feature-content">
+                    <h4>Multi-Viewport Testing</h4>
+                    <p>Live preview for mobile, tablet, laptop, and ultra-wide displays with instant resizing.</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                </div>
+                <div class="feature-content">
+                    <h4>Multi-Domain Switching</h4>
+                    <p>Effortlessly switch between Production (bahlou.dk), Development, Netlify, and Localhost.</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                </div>
+                <div class="feature-content">
+                    <h4>Store Routing Filter</h4>
+                    <p>Context-aware clinic options for Mukundluxecare, MP Byggesagkyndig, and Kochs Klinik.</p>
+                </div>
             </div>
         </div>
+
+        <!-- 3 Custom Dropdown Selectors Control Panel -->
+        <section class="control-panel">
+            <div class="control-panel-header">
+                <div class="control-panel-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" y1="21" x2="4" y2="14"></line>
+                        <line x1="4" y1="10" x2="4" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12" y2="3"></line>
+                        <line x1="20" y1="21" x2="20" y2="16"></line>
+                        <line x1="20" y1="12" x2="20" y2="3"></line>
+                        <line x1="1" y1="14" x2="7" y2="14"></line>
+                        <line x1="9" y1="8" x2="15" y2="8"></line>
+                        <line x1="17" y1="16" x2="23" y2="16"></line>
+                    </svg>
+                    <span>Configure Embed Preview Parameters</span>
+                </div>
+                <div class="selector-helper">
+                    Changes reflect immediately in the live widget frame below
+                </div>
+            </div>
+
+            <div class="selectors-grid">
+                <!-- Custom Dropdown 1: Domain Select -->
+                <div class="selector-item">
+                    <div class="selector-label">
+                        <span>1. Domain Environment</span>
+                        <span class="selector-helper">Target host</span>
+                    </div>
+                    <div id="domain-dropdown-root" class="dropdown-component">
+                        <!-- Rendered by JavaScript Component -->
+                    </div>
+                </div>
+
+                <!-- Custom Dropdown 2: Store Select -->
+                <div class="selector-item">
+                    <div class="selector-label">
+                        <span>2. Store / Clinic</span>
+                        <span class="selector-helper" id="store-count-label">Select clinic</span>
+                    </div>
+                    <div id="store-dropdown-root" class="dropdown-component">
+                        <!-- Rendered by JavaScript Component -->
+                    </div>
+                </div>
+
+                <!-- Custom Dropdown 3: Width Select -->
+                <div class="selector-item">
+                    <div class="selector-label">
+                        <span>3. Viewport Width</span>
+                        <span class="selector-helper">Device size</span>
+                    </div>
+                    <div id="width-dropdown-root" class="dropdown-component">
+                        <!-- Rendered by JavaScript Component -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Status Bar -->
+            <div class="config-status-bar">
+                <div class="url-preview-tag">
+                    <span class="badge-protocol">TARGET:</span>
+                    <span id="active-url-display">https://mp-dev.fiind.app/klinik/Mukundluxecare?lang=da&hide=true</span>
+                </div>
+                <div class="quick-actions">
+                    <button id="copy-url-btn" class="action-chip">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span>Copy URL</span>
+                    </button>
+                    <button id="reset-defaults-btn" class="action-chip">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                            <path d="M3 3v5h5"></path>
+                        </svg>
+                        <span>Reset Defaults</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Browser Device Preview -->
+        <div class="preview-outer-container">
+            <div id="embed-wrapper" class="device-browser-frame" style="width: 800px;">
+                <!-- Browser Title Bar -->
+                <div class="browser-top-bar">
+                    <div class="window-controls">
+                        <span class="window-dot dot-red"></span>
+                        <span class="window-dot dot-amber"></span>
+                        <span class="window-dot dot-green"></span>
+                    </div>
+                    <div class="browser-address-bar">
+                        <span class="address-lock">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                        </span>
+                        <span id="browser-bar-url" class="address-text">mp-dev.fiind.app/klinik/Mukundluxecare</span>
+                    </div>
+                    <div id="width-badge" class="browser-meta-badge">800px</div>
+                </div>
+
+                <!-- Embed Target Container -->
+                <div id="embed-container" class="embed-content-box" style="width: 800px;">
+                    <div id="embed-skeleton" class="embed-skeleton">
+                        <div class="skeleton-spinner"></div>
+                        <div class="skeleton-text">Loading Fiind Widget...</div>
+                        <div class="skeleton-subtext">Connecting to embed script and rendering booking interface</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Integration Script Helper -->
+        <section class="integration-section">
+            <div class="integration-header">
+                <div>
+                    <h3>Ready to Integrate into your Website?</h3>
+                    <p style="color: var(--slate-500); font-size: 0.9rem; margin-top: 4px;">
+                        Copy the auto-generated snippet below and paste it directly into your HTML page where you want the booking experience to appear.
+                    </p>
+                </div>
+            </div>
+
+            <div class="code-box-wrapper">
+                <div class="code-box-header">
+                    <span class="code-lang-label">HTML EMBED SNIPPET</span>
+                    <button id="copy-code-btn" class="copy-code-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span>Copy Code</span>
+                    </button>
+                </div>
+                <pre class="code-display" id="generated-code-snippet"></pre>
+            </div>
+        </section>
+
     </main>
 
-    <footer
-        style="margin-top: 48px; background: linear-gradient(180deg, #0f172a 0%, #111827 100%); color: #e2e8f0; border-top: 1px solid rgba(148, 163, 184, 0.2);">
-        <div
-            style="max-width: 1400px; margin: 0 auto; padding: 44px 24px 36px; display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
-            <div style="max-width: 720px;">
-                <div
-                    style="font-size: 1.6rem; line-height: 1.25; font-weight: 700; letter-spacing: -0.02em; color: #f8fafc;">
-                    Fiind Booking Embed Preview
-                </div>
-                <p style="margin: 14px 0 0; font-size: 1rem; line-height: 1.65; color: #cbd5e1;">
-                    Validate responsive behavior, environment-specific data, and visual consistency before embedding the
-                    booking widget on production pages.
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h4>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                    Fiind Booking Embed Platform
+                </h4>
+                <p>
+                    Enterprise-grade, mobile-responsive booking integration for multi-tenant clinics, beauty salons, and professional service businesses.
                 </p>
             </div>
-            <div style="min-width: 240px; font-size: 0.9rem; line-height: 1.7; color: #94a3b8;">
-                <div style="font-weight: 600; color: #cbd5e1;">Fiind Embed</div>
-                <div>Environment & viewport tester</div>
-                <div>For internal QA and release checks</div>
+            <div class="footer-column">
+                <h5>Supported Environments</h5>
+                <ul class="footer-links">
+                    <li><a href="#domain-dropdown-root">Production (bahlou.dk)</a></li>
+                    <li><a href="#domain-dropdown-root">Develop (mp-dev.fiind.app)</a></li>
+                    <li><a href="#domain-dropdown-root">Netlify Preview (bahlou-marketplace-dev)</a></li>
+                    <li><a href="#domain-dropdown-root">Localhost Development (:3000)</a></li>
+                </ul>
             </div>
+            <div class="footer-column">
+                <h5>Verified Clinics</h5>
+                <ul class="footer-links">
+                    <li><a href="#store-dropdown-root">Mukundluxecare (Dev Default)</a></li>
+                    <li><a href="#store-dropdown-root">MP Byggesagkyndig (Prod/Dev)</a></li>
+                    <li><a href="#store-dropdown-root">Kochs Klinik (Prod/Dev)</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>&copy; 2026 Fiind Platform. All rights reserved. Built for high conversion embeddable booking.</div>
+            <div>Theme: Warm Sunset Orange &bull; QA & Integration Suite</div>
         </div>
     </footer>
 
+    <!-- Toast Component -->
+    <div id="toast-message" class="toast-notification">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary-500)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        <span id="toast-text">Action completed successfully!</span>
+    </div>
+
+    <!-- Application Script -->
     <script>
         (function () {
-            var ENVS = {
-                develop: { base: 'https://mp-dev.fiind.app', clinic: 'Mukundluxecare' },
-                local: { base: 'http://localhost:3000', clinic: 'Mukundluxecare' },
-                kochsklinik: { base: 'https://bahlou.dk', clinic: 'kochsklinik' },
-                mpbyggesagkyndig: { base: 'https://bahlou.dk', clinic: 'mpbyggesagkyndig' },
-                developMpbyggesagkyndig: { base: 'https://mp-dev.fiind.app', clinic: 'mpbyggesagkyndig' },
-                localMpbyggesagkyndig: { base: 'http://localhost:3000', clinic: 'mpbyggesagkyndig' }
+            // Data Model for Domain configurations
+            const DOMAIN_CONFIGURATIONS = [
+                {
+                    id: "develop-main",
+                    title: "Development",
+                    subtitle: "mp-dev.fiind.app",
+                    base: "https://mp-dev.fiind.app",
+                    category: "development",
+                    badge: "DEV",
+                    badgeClass: "tag-dev",
+                    iconType: "code",
+                    stores: [
+                        { id: "mukundluxecare", name: "Mukundluxecare", subtitle: "Default Dev Clinic", clinicSlug: "Mukundluxecare", badge: "DEFAULT", iconType: "sparkle" },
+                        { id: "mpbyggesagkyndig", name: "MP Byggesagkyndig", subtitle: "Building Inspection", clinicSlug: "mpbyggesagkyndig", badge: "CLINIC", iconType: "building" },
+                        { id: "kochsklinik", name: "Kochs Klinik", subtitle: "Aesthetic & Health", clinicSlug: "kochsklinik", badge: "CLINIC", iconType: "heart" }
+                    ]
+                },
+                {
+                    id: "develop-netlify",
+                    title: "Development Netlify",
+                    subtitle: "bahlou-marketplace-dev.netlify.app",
+                    base: "https://bahlou-marketplace-dev.netlify.app",
+                    category: "development",
+                    badge: "DEV",
+                    badgeClass: "tag-dev",
+                    iconType: "cloud",
+                    stores: [
+                        { id: "mukundluxecare", name: "Mukundluxecare", subtitle: "Default Dev Clinic", clinicSlug: "Mukundluxecare", badge: "DEFAULT", iconType: "sparkle" },
+                        { id: "mpbyggesagkyndig", name: "MP Byggesagkyndig", subtitle: "Building Inspection", clinicSlug: "mpbyggesagkyndig", badge: "CLINIC", iconType: "building" },
+                        { id: "kochsklinik", name: "Kochs Klinik", subtitle: "Aesthetic & Health", clinicSlug: "kochsklinik", badge: "CLINIC", iconType: "heart" }
+                    ]
+                },
+                {
+                    id: "production",
+                    title: "Production",
+                    subtitle: "bahlou.dk",
+                    base: "https://bahlou.dk",
+                    category: "production",
+                    badge: "PROD",
+                    badgeClass: "tag-prod",
+                    iconType: "globe",
+                    stores: [
+                        { id: "mpbyggesagkyndig", name: "MP Byggesagkyndig", subtitle: "Production Clinic", clinicSlug: "mpbyggesagkyndig", badge: "LIVE", iconType: "building" },
+                        { id: "kochsklinik", name: "Kochs Klinik", subtitle: "Production Clinic", clinicSlug: "kochsklinik", badge: "LIVE", iconType: "heart" }
+                    ]
+                },
+                {
+                    id: "local",
+                    title: "Local Host",
+                    subtitle: "localhost:3000",
+                    base: "http://localhost:3000",
+                    category: "local",
+                    badge: "LOCAL",
+                    badgeClass: "tag-local",
+                    iconType: "terminal",
+                    stores: [
+                        { id: "mukundluxecare", name: "Mukundluxecare", subtitle: "Local Clinic", clinicSlug: "Mukundluxecare", badge: "DEFAULT", iconType: "sparkle" },
+                        { id: "mpbyggesagkyndig", name: "MP Byggesagkyndig", subtitle: "Local Clinic", clinicSlug: "mpbyggesagkyndig", badge: "LOCAL", iconType: "building" },
+                        { id: "kochsklinik", name: "Kochs Klinik", subtitle: "Local Clinic", clinicSlug: "kochsklinik", badge: "LOCAL", iconType: "heart" }
+                    ]
+                }
+            ];
+
+            // Width Presets
+            const WIDTH_CONFIGURATIONS = [
+                { id: "400", title: "Mobile", subtitle: "400px Viewport", value: "400", badge: "MOBILE", iconType: "phone" },
+                { id: "640", title: "Tablet Small", subtitle: "640px Viewport", value: "640", badge: "TABLET", iconType: "tablet" },
+                { id: "800", title: "Tablet Large", subtitle: "800px Viewport", value: "800", badge: "DEFAULT", iconType: "tablet" },
+                { id: "1024", title: "Laptop", subtitle: "1024px Viewport", value: "1024", badge: "LAPTOP", iconType: "laptop" },
+                { id: "1280", title: "Desktop Wide", subtitle: "1280px Viewport", value: "1280", badge: "DESKTOP", iconType: "monitor" },
+                { id: "100%", title: "Full Width", subtitle: "100% Fluid Container", value: "100%", badge: "FLUID", iconType: "maximize" }
+            ];
+
+            // Application State
+            const applicationState = {
+                selectedDomainId: "develop-main",
+                selectedStoreId: "mukundluxecare",
+                selectedWidthValue: "800"
             };
-            var container = document.getElementById('embed-container');
-            var wrapper = document.getElementById('embed-wrapper');
-            var widthSelect = document.getElementById('width-preset');
-            var envSelect = document.getElementById('env-preset');
-            var badge = document.getElementById('width-badge');
-            function buildBookingUrl(env) {
-                var bookingUrl = new URL(env.base + '/klinik/' + env.clinic);
-                var incomingParams = new URLSearchParams(window.location.search);
-                if (!incomingParams.has('lang')) incomingParams.set('lang', 'da');
-                incomingParams.set('hide', 'true');
-                incomingParams.forEach(function (value, key) {
-                    bookingUrl.searchParams.append(key, value);
+
+            // DOM Element References
+            const domainDropdownRoot = document.getElementById("domain-dropdown-root");
+            const storeDropdownRoot = document.getElementById("store-dropdown-root");
+            const widthDropdownRoot = document.getElementById("width-dropdown-root");
+            
+            const containerElement = document.getElementById("embed-container");
+            const wrapperElement = document.getElementById("embed-wrapper");
+            const widthBadgeElement = document.getElementById("width-badge");
+            const skeletonElement = document.getElementById("embed-skeleton");
+            
+            const activeUrlDisplayElement = document.getElementById("active-url-display");
+            const browserBarUrlElement = document.getElementById("browser-bar-url");
+            const externalPreviewLinkElement = document.getElementById("external-preview-link");
+            const generatedSnippetElement = document.getElementById("generated-code-snippet");
+            const storeCountLabelElement = document.getElementById("store-count-label");
+            
+            const copyUrlButton = document.getElementById("copy-url-btn");
+            const copyCodeButton = document.getElementById("copy-code-btn");
+            const refreshButton = document.getElementById("quick-refresh-btn");
+            const resetDefaultsButton = document.getElementById("reset-defaults-btn");
+            const toastElement = document.getElementById("toast-message");
+            const toastTextElement = document.getElementById("toast-text");
+
+            let toastTimeoutIdentifier = null;
+
+            // Toast feedback
+            function displayToastNotification(messageText) {
+                if (toastTimeoutIdentifier) {
+                    clearTimeout(toastTimeoutIdentifier);
+                }
+                toastTextElement.textContent = messageText;
+                toastElement.classList.add("show");
+                toastTimeoutIdentifier = setTimeout(function () {
+                    toastElement.classList.remove("show");
+                }, 3200);
+            }
+
+            // SVG Icon generator helper
+            function generateIconSvg(iconType) {
+                switch (iconType) {
+                    case "code":
+                        return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>';
+                    case "cloud":
+                        return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>';
+                    case "globe":
+                        return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>';
+                    case "terminal":
+                        return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>';
+                    case "sparkle":
+                        return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>';
+                    case "building":
+                        return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="9" y1="22" x2="9" y2="22.01"></line><line x1="15" y1="22" x2="15" y2="22.01"></line><line x1="9" y1="6" x2="9" y2="6.01"></line><line x1="15" y1="6" x2="15" y2="6.01"></line><line x1="9" y1="10" x2="9" y2="10.01"></line><line x1="15" y1="10" x2="15" y2="10.01"></line><line x1="9" y1="14" x2="9" y2="14.01"></line><line x1="15" y1="14" x2="15" y2="14.01"></line><line x1="9" y1="18" x2="9" y2="18.01"></line><line x1="15" y1="18" x2="15" y2="18.01"></line></svg>';
+                    case "heart":
+                        return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>';
+                    case "phone":
+                        return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>';
+                    case "tablet":
+                        return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>';
+                    case "laptop":
+                        return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="2" y1="20" x2="22" y2="20"></line></svg>';
+                    case "monitor":
+                        return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>';
+                    case "maximize":
+                        return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>';
+                    default:
+                        return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle></svg>';
+                }
+            }
+
+            // Close all open dropdowns
+            function closeAllDropdowns() {
+                const openDropdownElements = document.querySelectorAll(".dropdown-component.is-open");
+                openDropdownElements.forEach(function (elementItem) {
+                    elementItem.classList.remove("is-open");
                 });
-                return bookingUrl.toString();
             }
-            function loadEmbed() {
-                var env = ENVS[envSelect.value];
-                if (!env) return;
-                container.innerHTML = '';
-                var script = document.createElement('script');
-                script.src = env.base + '/assets/js/fiind-embed.js';
-                script.setAttribute('data-booking-url', buildBookingUrl(env));
-                script.setAttribute('data-height', '800px');
-                script.setAttribute('data-language', 'da');
-                script.setAttribute('data-theme', 'light');
-                script.setAttribute('data-show-language-switcher', 'false');
-                script.setAttribute('data-show-theme-switcher', 'false');
-                container.appendChild(script);
+
+            // Document click to close dropdowns outside
+            document.addEventListener("click", function (clickEvent) {
+                if (!clickEvent.target.closest(".dropdown-component")) {
+                    closeAllDropdowns();
+                }
+            });
+
+            // Reusable Custom Dropdown Component Builder
+            function createCustomDropdownComponent(configuration) {
+                const rootContainer = configuration.rootElement;
+                const itemsList = configuration.items;
+                const selectedIdentifier = configuration.selectedId;
+                const onSelectionChange = configuration.onSelect;
+
+                rootContainer.innerHTML = "";
+
+                const selectedOption = itemsList.find(function (itemCandidate) {
+                    return itemCandidate.id === selectedIdentifier;
+                }) || itemsList[0];
+
+                // Trigger Button
+                const triggerButton = document.createElement("button");
+                triggerButton.type = "button";
+                triggerButton.className = "dropdown-trigger-btn";
+                triggerButton.innerHTML = `
+                    <div class="dropdown-selected-content">
+                        <div class="dropdown-icon-pill">
+                            ${generateIconSvg(selectedOption.iconType)}
+                        </div>
+                        <div class="dropdown-text-group">
+                            <span class="dropdown-primary-text">${selectedOption.title || selectedOption.name}</span>
+                            <span class="dropdown-sub-text">${selectedOption.subtitle || selectedOption.base || ""}</span>
+                        </div>
+                    </div>
+                    <div class="dropdown-chevron">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                `;
+
+                // Options Menu Panel
+                const menuPanel = document.createElement("div");
+                menuPanel.className = "dropdown-menu-panel";
+
+                itemsList.forEach(function (optionItem) {
+                    const isItemSelected = optionItem.id === selectedOption.id;
+                    const optionElement = document.createElement("div");
+                    optionElement.className = "dropdown-option-item" + (isItemSelected ? " is-selected" : "");
+                    
+                    const badgeHtml = optionItem.badge 
+                        ? `<span class="option-tag-badge ${optionItem.badgeClass || 'tag-dev'}">${optionItem.badge}</span>` 
+                        : "";
+
+                    optionElement.innerHTML = `
+                        <div class="dropdown-option-left">
+                            <div class="dropdown-icon-pill">
+                                ${generateIconSvg(optionItem.iconType)}
+                            </div>
+                            <div class="dropdown-text-group">
+                                <span class="dropdown-primary-text">${optionItem.title || optionItem.name}</span>
+                                <span class="dropdown-sub-text">${optionItem.subtitle || optionItem.base || ""}</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            ${badgeHtml}
+                            <div class="dropdown-option-check">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                    `;
+
+                    optionElement.addEventListener("click", function (optionClickEvent) {
+                        optionClickEvent.stopPropagation();
+                        rootContainer.classList.remove("is-open");
+                        if (onSelectionChange) {
+                            onSelectionChange(optionItem);
+                        }
+                    });
+
+                    menuPanel.appendChild(optionElement);
+                });
+
+                // Toggle click
+                triggerButton.addEventListener("click", function (toggleEvent) {
+                    toggleEvent.stopPropagation();
+                    const wasOpen = rootContainer.classList.contains("is-open");
+                    closeAllDropdowns();
+                    if (!wasOpen) {
+                        rootContainer.classList.add("is-open");
+                    }
+                });
+
+                rootContainer.appendChild(triggerButton);
+                rootContainer.appendChild(menuPanel);
             }
-            function applyWidth() {
-                var val = widthSelect.value;
-                var width = val === '100%' ? '100%' : val + 'px';
-                container.style.width = width;
-                wrapper.style.width = width;
-                badge.textContent = val === '100%' ? '100%' : val + 'px';
+
+            // Get Current Active Objects
+            function getActiveConfiguration() {
+                const activeDomain = DOMAIN_CONFIGURATIONS.find(function (domainItem) {
+                    return domainItem.id === applicationState.selectedDomainId;
+                }) || DOMAIN_CONFIGURATIONS[0];
+
+                const activeStore = activeDomain.stores.find(function (storeItem) {
+                    return storeItem.id === applicationState.selectedStoreId;
+                }) || activeDomain.stores[0];
+
+                const activeWidth = WIDTH_CONFIGURATIONS.find(function (widthItem) {
+                    return widthItem.value === applicationState.selectedWidthValue;
+                }) || WIDTH_CONFIGURATIONS[2];
+
+                return {
+                    domain: activeDomain,
+                    store: activeStore,
+                    width: activeWidth
+                };
             }
-            envSelect.addEventListener('change', loadEmbed);
-            widthSelect.addEventListener('change', applyWidth);
-            applyWidth();
-            loadEmbed();
+
+            // Build Target Booking URL
+            function buildTargetBookingUrl(activeConfig) {
+                const targetUrl = new URL(activeConfig.domain.base + "/klinik/" + activeConfig.store.clinicSlug);
+                const currentQueryParameters = new URLSearchParams(window.location.search);
+                
+                if (!currentQueryParameters.has("lang")) {
+                    currentQueryParameters.set("lang", "da");
+                }
+                currentQueryParameters.set("hide", "true");
+                
+                currentQueryParameters.forEach(function (parameterValue, parameterKey) {
+                    targetUrl.searchParams.append(parameterKey, parameterValue);
+                });
+                
+                return targetUrl.toString();
+            }
+
+            // Render all 3 Dropdown Components
+            function renderAllDropdownComponents() {
+                const activeConfig = getActiveConfiguration();
+
+                // 1. Domain Dropdown
+                createCustomDropdownComponent({
+                    rootElement: domainDropdownRoot,
+                    items: DOMAIN_CONFIGURATIONS,
+                    selectedId: applicationState.selectedDomainId,
+                    onSelect: function (chosenDomain) {
+                        applicationState.selectedDomainId = chosenDomain.id;
+                        
+                        // Check if previous store exists in new domain, else choose first
+                        const storeExists = chosenDomain.stores.some(function (candidateStore) {
+                            return candidateStore.id === applicationState.selectedStoreId;
+                        });
+
+                        if (!storeExists) {
+                            applicationState.selectedStoreId = chosenDomain.stores[0].id;
+                        }
+
+                        renderAllDropdownComponents();
+                        reloadEmbedWidget();
+                    }
+                });
+
+                // 2. Store Dropdown (Dynamic list from active domain)
+                createCustomDropdownComponent({
+                    rootElement: storeDropdownRoot,
+                    items: activeConfig.domain.stores,
+                    selectedId: activeConfig.store.id,
+                    onSelect: function (chosenStore) {
+                        applicationState.selectedStoreId = chosenStore.id;
+                        renderAllDropdownComponents();
+                        reloadEmbedWidget();
+                    }
+                });
+
+                storeCountLabelElement.textContent = activeConfig.domain.stores.length + " available";
+
+                // 3. Width Dropdown
+                createCustomDropdownComponent({
+                    rootElement: widthDropdownRoot,
+                    items: WIDTH_CONFIGURATIONS,
+                    selectedId: activeConfig.width.id,
+                    onSelect: function (chosenWidth) {
+                        applicationState.selectedWidthValue = chosenWidth.value;
+                        renderAllDropdownComponents();
+                        applyViewportWidth();
+                    }
+                });
+            }
+
+            // Update UI Information displays
+            function updateInterfaceInformation() {
+                const activeConfig = getActiveConfiguration();
+                if (!activeConfig.domain || !activeConfig.store) return;
+
+                const fullBookingUrl = buildTargetBookingUrl(activeConfig);
+                
+                activeUrlDisplayElement.textContent = fullBookingUrl;
+                
+                const cleanHostPath = activeConfig.domain.base.replace(/^https?:\/\//, "") + "/klinik/" + activeConfig.store.clinicSlug;
+                browserBarUrlElement.textContent = cleanHostPath;
+                externalPreviewLinkElement.href = fullBookingUrl;
+
+                // Update Code Snippet
+                const codeSnippet = 
+`<div id="fiind-booking-embed"></div>
+<script 
+    src="${activeConfig.domain.base}/assets/js/fiind-embed.js"
+    data-booking-url="${fullBookingUrl}"
+    data-height="800px"
+    data-language="da"
+    data-theme="light"
+    data-show-language-switcher="false"
+    data-show-theme-switcher="false">
+<\/script>`;
+                generatedSnippetElement.textContent = codeSnippet;
+            }
+
+            // Load embed script into the container
+            function reloadEmbedWidget() {
+                const activeConfig = getActiveConfiguration();
+                if (!activeConfig.domain || !activeConfig.store) return;
+
+                updateInterfaceInformation();
+
+                // Show loading skeleton temporarily
+                containerElement.innerHTML = "";
+                
+                const skeletonClone = skeletonElement.cloneNode(true);
+                skeletonClone.style.display = "flex";
+                skeletonClone.style.opacity = "1";
+                containerElement.appendChild(skeletonClone);
+
+                const scriptElement = document.createElement("script");
+                scriptElement.src = activeConfig.domain.base + "/assets/js/fiind-embed.js";
+                scriptElement.setAttribute("data-booking-url", buildTargetBookingUrl(activeConfig));
+                scriptElement.setAttribute("data-height", "800px");
+                scriptElement.setAttribute("data-language", "da");
+                scriptElement.setAttribute("data-theme", "light");
+                scriptElement.setAttribute("data-show-language-switcher", "false");
+                scriptElement.setAttribute("data-show-theme-switcher", "false");
+
+                scriptElement.onload = function () {
+                    setTimeout(function () {
+                        if (skeletonClone && skeletonClone.parentNode) {
+                            skeletonClone.style.opacity = "0";
+                            setTimeout(function () {
+                                if (skeletonClone.parentNode) {
+                                    skeletonClone.remove();
+                                }
+                            }, 250);
+                        }
+                    }, 400);
+                };
+
+                scriptElement.onerror = function () {
+                    if (skeletonClone && skeletonClone.parentNode) {
+                        skeletonClone.innerHTML = `
+                            <div style="text-align: center; max-width: 460px; padding: 24px; background: #fffaf5; border: 1.5px dashed var(--primary-400); border-radius: 12px;">
+                                <div style="width: 44px; height: 44px; margin: 0 auto 12px; border-radius: 50%; background: var(--primary-100); color: var(--primary-600); display: flex; align-items: center; justify-content: center;">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                    </svg>
+                                </div>
+                                <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--slate-900); margin-bottom: 6px;">Widget Host Standby</h3>
+                                <p style="font-size: 0.85rem; color: var(--slate-600); line-height: 1.5; margin-bottom: 16px;">
+                                    Could not reach <code>${activeConfig.domain.base}</code> script directly. If running locally, ensure your server is active on <code>localhost:3000</code>.
+                                </p>
+                                <a href="${buildTargetBookingUrl(activeConfig)}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: var(--primary-500); color: #ffffff; text-decoration: none; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">
+                                    <span>Test Direct Page URL</span>
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                        <polyline points="15 3 21 3 21 9"></polyline>
+                                    </svg>
+                                </a>
+                            </div>
+                        `;
+                    }
+                };
+
+                containerElement.appendChild(scriptElement);
+            }
+
+            // Apply responsive width
+            function applyViewportWidth() {
+                const selectedWidthValue = applicationState.selectedWidthValue;
+                const formattedWidth = selectedWidthValue === "100%" ? "100%" : selectedWidthValue + "px";
+                
+                containerElement.style.width = formattedWidth;
+                wrapperElement.style.width = formattedWidth;
+                widthBadgeElement.textContent = formattedWidth;
+            }
+
+            // Action Buttons
+            refreshButton.addEventListener("click", function () {
+                reloadEmbedWidget();
+                displayToastNotification("Embed widget refreshed!");
+            });
+
+            resetDefaultsButton.addEventListener("click", function () {
+                applicationState.selectedDomainId = "develop-main";
+                applicationState.selectedStoreId = "mukundluxecare";
+                applicationState.selectedWidthValue = "800";
+                
+                renderAllDropdownComponents();
+                applyViewportWidth();
+                reloadEmbedWidget();
+                displayToastNotification("Reset to Development (Mukundluxecare) at 800px");
+            });
+
+            copyUrlButton.addEventListener("click", function () {
+                const activeConfig = getActiveConfiguration();
+                const fullBookingUrl = buildTargetBookingUrl(activeConfig);
+                navigator.clipboard.writeText(fullBookingUrl).then(function () {
+                    displayToastNotification("Booking URL copied to clipboard!");
+                }).catch(function () {
+                    displayToastNotification("Copied target booking URL!");
+                });
+            });
+
+            copyCodeButton.addEventListener("click", function () {
+                const codeSnippet = generatedSnippetElement.textContent;
+                navigator.clipboard.writeText(codeSnippet).then(function () {
+                    displayToastNotification("Embed code snippet copied!");
+                }).catch(function () {
+                    displayToastNotification("Snippet copied to clipboard!");
+                });
+            });
+
+            // Initial Bootstrap
+            renderAllDropdownComponents();
+            applyViewportWidth();
+            reloadEmbedWidget();
         })();
     </script>
 </body>
