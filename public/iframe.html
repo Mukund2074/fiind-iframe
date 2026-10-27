@@ -697,14 +697,19 @@
         width: 100%;
         min-height: 480px;
         background: #ffffff;
+        overflow: visible;
+        overflow-anchor: none;
       }
 
       .paste-preview-content iframe {
         width: 100%;
         min-height: 480px;
+        height: 480px;
         border: 0;
         display: block;
         background: #ffffff;
+        overflow: hidden;
+        overflow-anchor: none;
       }
 
       .paste-empty-state {
@@ -1452,11 +1457,12 @@
         white-space: nowrap;
       }
 
-      /* Embed Target Container */
+      /* Embed Target Container — overflow visible so FIIND_RESIZE does not scroll this pane */
       .embed-content-box {
         background: #ffffff;
         min-height: 800px;
-        overflow: auto;
+        overflow: visible;
+        overflow-anchor: none;
         position: relative;
         transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         margin: 0 auto;
@@ -3387,9 +3393,13 @@
             pastePreviewContent.innerHTML = rawHtml;
             const nestedIframe = pastePreviewContent.querySelector("iframe");
             if (nestedIframe) {
+              nestedIframe.classList.add("fiind-auto-height-iframe");
               nestedIframe.style.width = "100%";
               nestedIframe.style.minHeight = "480px";
+              nestedIframe.style.height = "480px";
               nestedIframe.style.border = "0";
+              nestedIframe.style.overflow = "hidden";
+              nestedIframe.setAttribute("scrolling", "no");
               nestedIframe.setAttribute("loading", "lazy");
             }
             return;
@@ -3404,6 +3414,14 @@
           const previewIframe = document.createElement("iframe");
           previewIframe.src = previewUrl;
           previewIframe.title = "Pasted embed preview";
+          previewIframe.className = "fiind-auto-height-iframe";
+          previewIframe.style.width = "100%";
+          previewIframe.style.minHeight = "480px";
+          previewIframe.style.height = "480px";
+          previewIframe.style.border = "0";
+          previewIframe.style.display = "block";
+          previewIframe.style.overflow = "hidden";
+          previewIframe.setAttribute("scrolling", "no");
           previewIframe.setAttribute("loading", "lazy");
           previewIframe.setAttribute(
             "referrerpolicy",
@@ -3796,6 +3814,118 @@
               displayToastNotification("Snippet copied to clipboard!");
             });
         });
+
+        // Style-3 auto-height: resize the iframe that posted FIIND_RESIZE
+        // (live embed, Ready-to-Integrate paste preview, and split panes).
+        function findIframeBySourceWindow(sourceWindow) {
+          if (!sourceWindow) return null;
+          const iframes = document.querySelectorAll("iframe");
+          for (let i = 0; i < iframes.length; i += 1) {
+            try {
+              if (iframes[i].contentWindow === sourceWindow) return iframes[i];
+            } catch (err) {}
+          }
+          return null;
+        }
+
+        function lockScrollAncestors(startNode) {
+          const locks = [];
+          locks.push({
+            type: "window",
+            x: window.pageXOffset || document.documentElement.scrollLeft || 0,
+            y: window.pageYOffset || document.documentElement.scrollTop || 0,
+          });
+          let node = startNode;
+          while (node && node !== document.body && node !== document.documentElement) {
+            if (node.scrollTop || node.scrollLeft || node.scrollHeight > node.clientHeight) {
+              locks.push({
+                type: "element",
+                el: node,
+                x: node.scrollLeft,
+                y: node.scrollTop,
+              });
+            }
+            node = node.parentElement;
+          }
+          return locks;
+        }
+
+        function restoreScrollAncestors(locks) {
+          if (!locks) return;
+          const apply = function () {
+            for (let i = 0; i < locks.length; i += 1) {
+              const lock = locks[i];
+              if (lock.type === "window") window.scrollTo(lock.x, lock.y);
+              else if (lock.el) {
+                lock.el.scrollLeft = lock.x;
+                lock.el.scrollTop = lock.y;
+              }
+            }
+          };
+          apply();
+          requestAnimationFrame(function () {
+            apply();
+            requestAnimationFrame(apply);
+          });
+        }
+
+        function applyFiindResize(eventItem) {
+          if (!eventItem.data || eventItem.data.type !== "FIIND_RESIZE") return;
+          const nextHeight = Math.ceil(Number(eventItem.data.height));
+          if (!(nextHeight > 0)) return;
+
+          const bookingIframe = findIframeBySourceWindow(eventItem.source);
+          if (!bookingIframe) return;
+
+          const currentHeight = Math.ceil(
+            parseFloat(bookingIframe.style.height) ||
+              bookingIframe.getBoundingClientRect().height ||
+              0,
+          );
+          if (currentHeight === nextHeight) return;
+
+          const locks = lockScrollAncestors(bookingIframe).filter(function (lock) {
+            return lock.type === "element";
+          });
+          const viewportTopBefore = bookingIframe.getBoundingClientRect().top;
+
+          bookingIframe.style.height = nextHeight + "px";
+          bookingIframe.style.minHeight = nextHeight + "px";
+          bookingIframe.setAttribute("scrolling", "no");
+
+          const hostBox =
+            bookingIframe.closest(
+              "#paste-preview-content, #embed-container, .paste-preview-content, .embed-content-box, .split-pane-frame",
+            ) || bookingIframe.parentElement;
+          if (hostBox) {
+            hostBox.style.minHeight = nextHeight + "px";
+            hostBox.style.height = "auto";
+            hostBox.style.overflow = "visible";
+          }
+
+          restoreScrollAncestors(locks);
+          const settleAnchor = function () {
+            const drift =
+              bookingIframe.getBoundingClientRect().top - viewportTopBefore;
+            if (Math.abs(drift) > 1) window.scrollBy(0, drift);
+          };
+          settleAnchor();
+          requestAnimationFrame(settleAnchor);
+        }
+
+        function applyFiindWheel(eventItem) {
+          if (!eventItem.data || eventItem.data.type !== "FIIND_WHEEL") return;
+          const deltaX = Number(eventItem.data.deltaX) || 0;
+          const deltaY = Number(eventItem.data.deltaY) || 0;
+          if (!deltaX && !deltaY) return;
+          // Only accept wheel from one of our booking iframes
+          const sourceIframe = findIframeBySourceWindow(eventItem.source);
+          if (!sourceIframe) return;
+          window.scrollBy(deltaX, deltaY);
+        }
+
+        window.addEventListener("message", applyFiindResize);
+        window.addEventListener("message", applyFiindWheel);
 
         // Initial Bootstrap
         syncCustomFieldsFromState();
